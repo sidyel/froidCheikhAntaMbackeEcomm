@@ -1,0 +1,627 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.about-page {
+  @apply min-h-screen;
+}
+
+/* Optimisation du chargement des images */
+img {
+  @apply transition-opacity duration-500;
+  opacity: 0;
+}
+
+img.loaded,
+img:not([loading]) {
+  opacity: 1;
+}
+
+/* Placeholder pour les images en cours de chargement */
+.partner-image,
+.member-image,
+.achievement-img {
+  @apply bg-gray-200;
+  min-height: 100px;
+  background-image:
+    linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.2) 25%, rgba(255,255,255,0.2) 75%, transparent 75%),
+    linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.2) 25%, rgba(255,255,255,0.2) 75%, transparent 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  animation: skeleton-loading 2s infinite linear;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 0 0, 10px 10px;
+  }
+  100% {
+    background-position: 20px 20px, 30px 30px;
+  }
+}
+
+/* Arrêter l'animation une fois l'image chargée */
+img.loaded {
+  animation: none;
+  background: none;
+}
+
+/* Hero Section avec image de fond optimisée */
+.hero-section {
+  @apply relative min-h-screen flex items-center justify-center overflow-hidden;
+}
+
+.hero-background {
+  @apply absolute inset-0 z-0;
+  background-image: url('/assets/images/hero-bg-climatisation.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  /* Préchargement de l'image de fond */
+  will-change: transform;
+}
+
+/* Optimisation pour les navigateurs */
+@media (max-width: 768px) {
+  .hero-background {
+    background-attachment: scroll; /* Meilleur pour mobile */
+  }
+}
+
+.hero-overlay {
+  @apply absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/70 to-primary-900/80;
+}
+
+.hero-content {
+  @apply relative z-10 text-center text-white max-w-4xl mx-auto px-4;
+  animation: fadeIn 1s ease-out;
+}
+
+.hero-title {
+  @apply text-4xl md:text-6xl font-bold mb-6 leading-tight;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-subtitle {
+  @apply text-xl md:text-2xl mb-12 font-light opacity-90;
+}
+
+.hero-stats {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-8 mt-16;
+}
+
+.stat {
+  @apply text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.stat:hover {
+  @apply transform -translate-y-2 bg-white/20;
+}
+
+.stat-number {
+  @apply block text-3xl md:text-4xl font-bold text-accent-400 mb-2;
+}
+
+.stat-label {
+  @apply text-sm md:text-base uppercase tracking-wide font-medium;
+}
+
+/* Mission & Vision */
+.mission-vision {
+  @apply py-20 bg-gray-50;
+}
+
+.mission-card, .vision-card {
+  @apply bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 h-full;
+  border-left: 4px solid theme('colors.primary.500');
+}
+
+.vision-card {
+  border-left-color: theme('colors.secondary.500');
+}
+
+.card-icon {
+  @apply w-12 h-12 text-primary-500 mb-4;
+}
+
+.vision-card .card-icon {
+  @apply text-secondary-500;
+}
+
+.mission-card h3, .vision-card h3 {
+  @apply text-2xl font-bold mb-4 text-gray-800;
+}
+
+/* Section Partenaires */
+.partners-section {
+  @apply py-20 bg-white;
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl font-bold text-center mb-4 text-gray-800;
+}
+
+.section-subtitle {
+  @apply text-lg text-center text-gray-600 mb-16 max-w-2xl mx-auto;
+}
+
+.partners-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.partner-card {
+  @apply bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-center border border-gray-100;
+}
+
+.partner-card:hover {
+  @apply transform -translate-y-2;
+}
+
+.partner-logo {
+  @apply w-20 h-20 mx-auto mb-6 flex items-center justify-center bg-gray-50 rounded-full overflow-hidden;
+}
+
+.partner-logo img {
+  @apply max-w-full max-h-full object-contain;
+  /* Force le chargement immédiat */
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+}
+
+.partner-card h4 {
+  @apply text-xl font-bold mb-3 text-gray-800;
+}
+
+.partner-card p {
+  @apply text-gray-600 text-sm leading-relaxed;
+}
+
+/* Services améliorés */
+.services-section {
+  @apply py-20 bg-gray-50;
+}
+
+.services-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.service-card {
+  @apply bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 h-full;
+}
+
+.service-card:hover {
+  @apply transform -translate-y-2;
+}
+
+.service-icon {
+  @apply w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6;
+}
+
+.service-icon .icon {
+  @apply w-8 h-8 text-primary-600;
+}
+
+.service-card h4 {
+  @apply text-xl font-bold mb-4 text-gray-800;
+}
+
+.service-card > p {
+  @apply text-gray-600 mb-6 leading-relaxed;
+}
+
+.service-features {
+  @apply space-y-2;
+}
+
+.service-features li {
+  @apply flex items-center text-gray-700 text-sm;
+}
+
+.check-icon {
+  @apply w-4 h-4 text-secondary-500 mr-2 flex-shrink-0;
+}
+
+/* Équipe avec photos - optimisé */
+.team-section {
+  @apply py-20 bg-white;
+}
+
+.team-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.team-member {
+  @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden;
+}
+
+.team-member:hover {
+  @apply transform -translate-y-2;
+}
+
+.member-photo {
+  @apply relative overflow-hidden h-64 bg-gray-200;
+}
+
+.member-photo img {
+  @apply w-full h-full object-cover transition-all duration-500;
+  /* Optimisation pour les images de l'équipe */
+  object-fit: cover;
+  object-position: center;
+}
+
+.member-photo img.loaded {
+  @apply opacity-100;
+}
+
+.team-member:hover .member-photo img.loaded {
+  @apply transform scale-110;
+}
+
+.member-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 flex items-end justify-center pb-4;
+}
+
+.team-member:hover .member-overlay {
+  @apply opacity-100;
+}
+
+.social-links {
+  @apply flex space-x-3;
+}
+
+.social-links a {
+  @apply w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white hover:text-primary-600 transition-all duration-300;
+}
+
+.member-info {
+  @apply p-6;
+}
+
+.member-info h4 {
+  @apply text-xl font-bold mb-2 text-gray-800;
+}
+
+.member-position {
+  @apply text-primary-600 font-semibold mb-2;
+}
+
+.member-experience {
+  @apply text-sm text-gray-500 mb-3;
+}
+
+.member-bio {
+  @apply text-gray-600 text-sm leading-relaxed mb-4;
+}
+
+.member-skills {
+  @apply flex flex-wrap gap-2;
+}
+
+.skill-tag {
+  @apply px-3 py-1 bg-primary-100 text-primary-700 text-xs rounded-full font-medium;
+}
+
+/* Section Réalisations - optimisé */
+.achievements-section {
+  @apply py-20 bg-gray-50;
+}
+
+.achievements-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.achievement-card {
+  @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden;
+}
+
+.achievement-card:hover {
+  @apply transform -translate-y-2;
+}
+
+.achievement-image {
+  @apply relative h-48 overflow-hidden bg-gray-200;
+}
+
+.achievement-image img {
+  @apply w-full h-full object-cover transition-all duration-500;
+  object-fit: cover;
+  object-position: center;
+}
+
+.achievement-image img.loaded {
+  @apply opacity-100;
+}
+
+.achievement-card:hover .achievement-image img.loaded {
+  @apply transform scale-110;
+}
+
+.achievement-overlay {
+  @apply absolute top-4 right-4;
+}
+
+.achievement-category {
+  @apply px-3 py-1 bg-primary-600 text-white text-xs rounded-full font-semibold;
+}
+
+.achievement-content {
+  @apply p-6;
+}
+
+.achievement-content h4 {
+  @apply text-xl font-bold mb-3 text-gray-800;
+}
+
+.achievement-location {
+  @apply flex items-center text-gray-600 text-sm mb-4;
+}
+
+.location-icon {
+  @apply w-4 h-4 mr-1;
+}
+
+.achievement-description {
+  @apply text-gray-700 text-sm leading-relaxed mb-6;
+}
+
+.achievement-details {
+  @apply space-y-2 mb-4;
+}
+
+.detail-item {
+  @apply flex justify-between items-center text-sm;
+}
+
+.detail-label {
+  @apply font-semibold text-gray-600;
+}
+
+.detail-value {
+  @apply text-gray-800;
+}
+
+.achievement-tags {
+  @apply flex flex-wrap gap-2;
+}
+
+.tag {
+  @apply px-2 py-1 bg-secondary-100 text-secondary-700 text-xs rounded-full;
+}
+
+/* Call to Action */
+.cta-section {
+  @apply py-20 bg-gradient-to-r from-primary-600 to-primary-800 text-white;
+}
+
+.cta-content {
+  @apply text-center max-w-3xl mx-auto;
+}
+
+.cta-content h2 {
+  @apply text-3xl md:text-4xl font-bold mb-4;
+}
+
+.cta-content p {
+  @apply text-xl mb-8 opacity-90;
+}
+
+.cta-buttons {
+  @apply flex flex-col sm:flex-row justify-center gap-4;
+}
+
+.btn {
+  @apply px-8 py-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 text-center min-w-[200px];
+}
+
+.btn-primary {
+  @apply bg-white text-primary-600 hover:bg-gray-100 hover:transform hover:-translate-y-1 shadow-lg hover:shadow-xl;
+}
+
+.btn-outline {
+  @apply border-2 border-white text-white hover:bg-white hover:text-primary-600 hover:transform hover:-translate-y-1;
+}
+
+.btn lucide-icon {
+  @apply w-5 h-5;
+}
+
+/* Optimisations de performance */
+
+/* Préchargement des ressources critiques */
+.hero-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/images/hero-bg-climatisation.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Optimisation GPU pour les animations */
+.team-member,
+.achievement-card,
+.partner-card,
+.service-card {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Optimisation des images avec intersection observer */
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+/* États de chargement visuels */
+.loading-placeholder {
+  @apply bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200;
+  animation: shimmer 1.5s infinite;
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Responsive Design optimisé */
+@media (max-width: 768px) {
+  .hero-title {
+    @apply text-3xl;
+  }
+
+  .hero-subtitle {
+    @apply text-lg;
+  }
+
+  .hero-stats {
+    @apply grid-cols-1 gap-4;
+  }
+
+  .section-title {
+    @apply text-2xl;
+  }
+
+  .partners-grid {
+    @apply grid-cols-1;
+  }
+
+  .services-grid {
+    @apply grid-cols-1;
+  }
+
+  .team-grid {
+    @apply grid-cols-1;
+  }
+
+  .achievements-grid {
+    @apply grid-cols-1;
+  }
+
+  .cta-buttons {
+    @apply flex-col;
+  }
+}
+
+/* Container styles */
+.container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.row {
+  @apply flex flex-wrap -mx-4;
+}
+
+.col-md-6 {
+  @apply w-full md:w-1/2 px-4 mb-8 md:mb-0;
+}
+
+/* Animations améliorées */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideInUp 0.6s ease-out;
+}
+
+/* Intersection Observer animations */
+.fade-in-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Focus states pour l'accessibilité */
+.btn:focus,
+.team-member:focus,
+.service-card:focus,
+.achievement-card:focus,
+.partner-card:focus {
+  @apply outline-none ring-4 ring-primary-300 ring-opacity-50;
+}
+
+/* Optimisations d'impression */
+@media print {
+  .hero-background,
+  .hero-overlay {
+    @apply hidden;
+  }
+
+  .hero-section {
+    @apply min-h-0 py-8 bg-white text-black;
+  }
+
+  .btn {
+    @apply hidden;
+  }
+
+  img {
+    opacity: 1 !important;
+  }
+}
+
+/* Préchargement des polices critiques */
+@font-face {
+  font-display: swap;
+}
+
+/* Optimisation pour les connexions lentes */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Support pour les écrans haute densité */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .partner-logo img,
+  .member-photo img,
+  .achievement-image img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
